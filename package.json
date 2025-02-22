@@ -36,6 +36,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
+    "@types/esprima": "^4.0.6",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@types/vscode": "^1.97.0",

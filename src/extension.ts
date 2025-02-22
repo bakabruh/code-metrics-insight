@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { analyzeCode } from './metrics';
 
 export function activate(context: vscode.ExtensionContext) {
     let disposable = vscode.commands.registerCommand('codeMetrics.showMetrics', () => {
@@ -16,15 +17,15 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         const code = editor.document.getText();
-        const lines = code.split('\n').length;
-        const words = code.split(/\s+/).length;
+        const { functionCount, avgFunctionSize, complexity } = analyzeCode(code);
 
         panel.webview.html = `
             <html>
                 <body>
                     <h2>📊 Code Metrics</h2>
-                    <p>Lines: <strong>${lines}</strong></p>
-                    <p>Words: <strong>${words}</strong></p>
+                    <p>Nombre total de functions: <strong>${functionCount}</strong></p>
+                    <p>Taille moyenne d'une fonction: <strong>${avgFunctionSize}</strong></p>
+                    <p>Complexité cyclomatique: <strong>${complexity}</strong></p>
                 </body>
             </html>
         `;
