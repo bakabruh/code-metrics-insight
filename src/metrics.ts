@@ -1,7 +1,7 @@
-import * as esprima from 'esprima';
+import { parse } from '@typescript-eslint/parser';
 
 export function analyzeCode(code: string) {
-    const ast = esprima.parseScript(code, {loc: true});
+    const ast = parse(code, {loc: true});
 
     let functionCount = 0;
     let totalFunctionSize = 0;
